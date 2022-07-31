@@ -1,0 +1,34 @@
+class Solution {
+    public boolean isPalindrome(int x) {
+        String num = String.valueOf(x);
+        int count = String.valueOf(x).length();
+        if(x%2 == 0){
+            int test=0;
+            while(test<count/2){
+                if(num.charAt(test) ==(num.charAt(count-test))){
+                    test++;
+                }
+            }
+            if(test == count/2){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        else{
+            int test=0;
+            while(test<(count/2)-1){
+                if(num.charAt(test) == (num.charAt(count-test))){
+                    test++;
+                }
+            }
+            if(test == (count/2)-1){
+                return true;
+            }else{
+                return false;
+            }
+            
+        }
+        
+    }
+}
