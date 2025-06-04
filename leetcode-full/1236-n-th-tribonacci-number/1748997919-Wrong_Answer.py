@@ -1,0 +1,12 @@
+class Solution:
+    def tribonacci(self, n: int) -> int:
+        nums = [0,1,1]
+        if n < 4 :
+            return sum(nums[:n-1])
+
+        for i in range(n-2):
+            print(nums)
+            nums.append(sum(nums))
+            nums = nums[1:]
+
+        return nums[-1]
