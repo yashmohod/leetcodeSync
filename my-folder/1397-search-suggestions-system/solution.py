@@ -1,17 +1,18 @@
 class Solution:
     def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
-        products = [product.lower() for product in products]
+        
+        ans = []
         products.sort()
-        results=[]
-        for i in range(1,len(searchWord)+1):
-            print(searchWord[:i])
-            result = []
-            count = 0
-            while(len(result)<3 and count <len(products) ):
-                if(products[count].startswith(searchWord[:i]) ):
-                    result.append(products[count])
-                count +=1
-            results.append(result)
-        print(results)
-        return results
+        word = ""
+        for i in searchWord:
+            cur =[]
+            word +=i
+            for j in products:
+                if j.startswith(word):
+                    cur.append(j)
+            if len(cur)>3:
+                cur = cur[:3]
+            ans.append(cur)
+        
+        return ans 
 
