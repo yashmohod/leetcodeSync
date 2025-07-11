@@ -1,6 +1,5 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        n = len(prices)
         min_ = float('inf')
         maxPrf =0
         for i in prices:
@@ -8,4 +7,4 @@ class Solution:
             maxPrf = max(maxPrf,i- min_)
     
         return maxPrf
-        
+
