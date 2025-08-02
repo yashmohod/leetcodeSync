@@ -1,12 +1,13 @@
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
-        ans =[[1]]
-        for i in range(numRows-1):
-            cur = [1]
-            for j in range(len(ans[-1])-1):
-                cur.append(ans[-1][j] +ans[-1][j+1])
-            cur.append(1)
-            ans.append(cur)
-        # print(ans)
+        
+        res = []
 
-        return ans
+        for i in range(numRows):
+            num=[1]
+            if i >0:
+                for j in range(len(res[-1])-1):
+                    num.append(res[-1][j] + res[-1][j+1])
+                num.append(1)
+            res.append(num)
+        return res
