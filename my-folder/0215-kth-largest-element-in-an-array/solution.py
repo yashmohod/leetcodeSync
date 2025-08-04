@@ -25,3 +25,6 @@ class Solution:
                 return nums[k]
 
         return quickSelect(0, len(nums) - 1)
+
+
+
