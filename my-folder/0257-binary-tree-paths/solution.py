@@ -27,5 +27,3 @@ class Solution:
                 return l+r
             
         return dfs(root)
-
-            
