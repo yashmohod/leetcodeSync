@@ -1,13 +1,8 @@
-class Solution(object):
-    def kidsWithCandies(self, candies, extraCandies):
-        max_candies = max(candies)
+import numpy as np 
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
         
-        result = []
-        
-        for candy in candies:
-            if candy + extraCandies >= max_candies:
-                result.append(True)
-            else:
-                result.append(False)
-        
-        return result
+        lp = max(candies)
+        res =  (np.array(candies) +extraCandies) >= lp
+        res = res.tolist()
+        return res
