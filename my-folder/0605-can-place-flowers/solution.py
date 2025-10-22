@@ -1,32 +1,24 @@
-class Solution(object):
-    def canPlaceFlowers(self, flowerbed, n):
-        """
-        :type flowerbed: List[int]
-        :type n: int
-        :rtype: bool
-        """
-        fb=flowerbed
-        if n == 0:
-            return True
-        else:
-            for i in range(len(fb)):
-                if i ==0 and fb[i] ==0 :
-                    if len(fb) !=1:
-                        if fb[i+1] ==0 :
-                            n-=1
-                            fb[i] =1
-                    else:
-                        n-=1
-                        fb[i] =1
-                else:
-                    if fb[i-1] == 0 and fb[i] ==0:
-                        if i <  len(fb)-1:
-                            if fb[i+1] == 0 :
-                                n -=1
-                                fb[i] =1
-                        else:
-                            n -=1
-                            fb[i] =1
-                if n==0:
-                    return True
-            return False
+class Solution:
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        f = flowerbed
+
+        if len(f) <=1:
+            if (f[0] ==0  and n <=1) or (f[0]==1 and n == 0):
+                return True
+            else:
+                return False
+
+        if f[0] ==0 and f[1] == 0:
+            f[0] = 1 
+            n-=1
+        for i in range(1,len(f)-2):
+            if f[i-1] == 0 and f[i+1] == 0 and f[i]==0:
+                f[i]=1
+                n-=1
+            if n ==0:
+                return True
+        if f[-1] == 0 and f[-2] ==0:
+            n-=1
+   
+
+        return n < 1 
