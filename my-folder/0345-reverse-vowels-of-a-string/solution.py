@@ -1,27 +1,19 @@
-class Solution(object):
-    def reverseVowels(self, s):
-        # Convert the input string to a character array.
-        word = list(s)
-        start = 0
-        end = len(s) - 1
-        vowels = "aeiouAEIOU"
+class Solution:
+    def reverseVowels(self, s: str) -> str:
+        s = list(s)
+
+        vo = list("aeiouAEIOU")
+
+        l,r = 0,len(s)-1
+
+        while l<r:
+            while s[l] not in vo and l<r:
+                l+=1
+            while s[r] not in vo and l<r:
+                r-=1
+
+            s[l],s[r] = s[r],s[l]
+            l+=1
+            r-=1
         
-        # Loop until the start pointer is no longer less than the end pointer.
-        while start < end:
-            # Move the start pointer towards the end until it points to a vowel.
-            while start < end and vowels.find(word[start]) == -1:
-                start += 1
-            
-            # Move the end pointer towards the start until it points to a vowel.
-            while start < end and vowels.find(word[end]) == -1:
-                end -= 1
-            
-            # Swap the vowels found at the start and end positions.
-            word[start], word[end] = word[end], word[start]
-            
-            # Move the pointers towards each other for the next iteration.
-            start += 1
-            end -= 1
-        
-        # Convert the character array back to a string and return the result.
-        return "".join(word)
+        return "".join(s)
