@@ -1,19 +1,37 @@
 class Solution:
-  def compress(self, chars: List[str]) -> int:
-    ans = 0
-    i = 0
+    def compress(self, chars: List[str]) -> int:
+        
+        f=0
+        c=chars[0]
+        ci=0
+        res=""
+        for i in chars:
+            # print(f,c,i)
+            if i == c:
+                f+=1
+            else:
+                res+=c
+                chars[ci]=c
+                ci+=1
+                if f>1:
+                    fs = str(f)
+                    res+=fs
+                    for j in fs:
+                        chars[ci] =j
+                        ci+=1
+                f=1
+                c=i
+        res+=c
+        chars[ci]=c
+        ci+=1
+        if f>1:
+            fs = str(f)
+            res+=fs
+            for j in fs:
+                chars[ci] =j
+                ci+=1
 
-    while i < len(chars):
-      letter = chars[i]
-      count = 0
-      while i < len(chars) and chars[i] == letter:
-        count += 1
-        i += 1
-      chars[ans] = letter
-      ans += 1
-      if count > 1:
-        for c in str(count):
-          chars[ans] = c
-          ans += 1
-
-    return ans
+        # for i,j in enumerate(res):
+        #     chars[i]=j
+        
+        return ci
