@@ -1,4 +1,5 @@
 class Solution:
     def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
-        return [set(nums1).difference(set(nums2)), set(nums2).difference(set(nums1))]
-
+        a = set(nums1)
+        b = set(nums2)
+        return [list(a - a.intersection(b)),list(b - b.intersection(a))]
