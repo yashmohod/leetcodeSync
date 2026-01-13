@@ -12,3 +12,4 @@ class Solution:
                 col.append(grid[j][i])
             cnt += m[str(col)]
         return cnt
+
