@@ -5,32 +5,27 @@
 #         self.next = next
 class Solution:
     def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if head == None or head.next == None :
+        
+        if head == None or head.next == None:
             return head
-        oddFirst = None
-        oddLast=None
-        evenFirst=None
-        evenLast=None
-        cur = head
-        count =1
-        while cur != None:
-            print(cur.val)
-            if count %2 ==0:
-                if evenLast == None:
-                    evenLast = cur
-                    evenFirst = cur
-                else:
-                    evenLast.next = cur 
-                    evenLast = cur
+        
+        o = head
+        eh =head.next
+        e = head.next
+        t = e.next
+        c = 1
+
+        while t :
+            tmp = t.next
+            if c % 2 :
+                o.next = t
+                o = t 
             else:
-                if oddLast == None:
-                    oddLast = cur
-                    oddFirst = cur
-                else:
-                    oddLast.next = cur 
-                    oddLast = cur
-            cur = cur.next
-            count +=1
-        oddLast.next = evenFirst
-        evenLast.next = None
-        return oddFirst
+                e.next = t 
+                e = t
+            c+=1
+            t = tmp
+        
+        e.next = None      # IMPORTANT: terminate even list
+        o.next = eh        # stitch odd tail to even head
+        return head
