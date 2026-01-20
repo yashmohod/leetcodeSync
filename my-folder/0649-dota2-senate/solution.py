@@ -1,28 +1,26 @@
-from collections import deque
-
 class Solution:
     def predictPartyVictory(self, senate: str) -> str:
-        queue = deque(senate)
-        
+
+        q = deque(list(senate))
         counter = 0
-        current_type = ''
-
-        while queue and counter < len(senate):
-
-            senator = queue.popleft()
-            if current_type == '':
-                counter = 1
-                current_type = senator
-                queue.append(senator)
-            elif current_type == senator:
-                counter += 1
-                queue.append(senator)
-            elif counter == 1:
+        cur = ""
+        while q and counter < len(senate):
+            c = q.popleft()
+            if cur == "":
+                counter=1
+                cur = c
+                q.append(c)
+            elif c == cur:
+                counter+=1
+                q.append(c)
+            elif counter==1:
                 counter = 0
-                current_type = ''
+                cur=""
             else:
-                counter -= 1
+                counter -=1
+        
+        return "Radiant" if q[0]=="R" else "Dire"
+                
 
 
-        return 'Radiant' if queue[0] == 'R' else 'Dire'
 
