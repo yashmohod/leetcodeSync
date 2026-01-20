@@ -1,19 +1,18 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        
-        stk = []
+    
+        q = deque([])
+        m = {"}":"{","]":"[", ")":"("}
+        for i in s :
 
-        for i in s:
-            if len(stk) == 0 :
-                stk.append(i)
+            if i not in m.keys():
+                q.append(i)
             else:
-                last = stk.pop()
-                stk.append(last)
-                if  ((last == "(" and i == ")") or 
-                     (last == "{" and i == "}") or 
-                     (last == "[" and i == "]")):
-                    stk.pop()
+                if len(q) == 0:
+                    return False
                 else:
-                    stk.append(i)
-
-        return len(stk) == 0 
+                    cur = q.pop()
+                    if m[i] != cur:
+                        return False
+        return True if len(q) == 0 else False
+            
