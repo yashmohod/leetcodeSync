@@ -1,18 +1,18 @@
 class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
         
-        res = []
+        s = deque([])
 
-        for a in asteroids:
-
-            while res and a < 0 < res[-1]:
-                if -a > res[-1]:
-                    res.pop()
+        for i in asteroids:
+            while s and i < 0 < s[-1]:
+                if -i  > s[-1]:
+                    s.pop()
                     continue
-                elif -a == res[-1]:
-                    res.pop()
+                elif  -i == s[-1]:
+                    s.pop()
                 break
             else:
-                res.append(a)
+                s.append(i)
+        
+        return list(s)
 
-        return res
