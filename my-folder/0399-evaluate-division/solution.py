@@ -1,54 +1,29 @@
 class Solution:
-    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        ans =[]
-        for q in queries:
-            c1 = False
-            c2 = False
+    def calcEquation(self, equations, values, queries):
+        g = {}
 
-            for e in equations:
-                if(q[0] == e[0] or q[0] == e[1]):
-                    c1=True
-                if(q[1] == e[0] or q[1] == e[1]):
-                    c2=True
-            
-            if c1 and c2:
-                if q[0] == q[1] :
-                    ans.append(1)
-                else:
-                    notSkip = True
-                    for e in equations:
-                        if q[0] == e[0] and q[1] == e[1]:
-                            ans.append(values[equations.index(e)])
-                            notSkip = False
-                        if q[0] == e[1] and q[1] == e[0]:
-                            ans.append(1/values[equations.index(e)])
-                            notSkip = False
-                    if notSkip:
-                        adjList = collections.defaultdict(list)
-                        for e in equations:
-                            ab = values[equations.index(e)]
-                            adjList[e[0]].append((e[1],ab))
-                            adjList[e[1]].append((e[0],1/ab))
+        for (x, y), ans in zip(equations, values):
+            g.setdefault(x, []).append((y, ans))
+            g.setdefault(y, []).append((x, 1.0 / ans))
 
+        def dfs(cur, des, seen):
+            if cur == des:
+                return 1.0
 
-                        que=collections.deque()
-                        que.append([q[0],1])
-                        done=[q[0]]
-                        reached = True
-                        while(len(que)>0):
-                            now , wei=  que.popleft()
-                            if now == q[1]:
-                                ans.append(wei)
-                                reached = False
-                            for v,c in adjList[now]:
-                                if not (v in done)  :
-                                        done.append(v)
-                                        que.append([v,c*wei])
-                        if reached :
-                            ans.append(-1)
- 
+            for nxt, w in g[cur]:
+                if nxt in seen:
+                    continue
+                seen.add(nxt)
+                sub = dfs(nxt, des, seen)
+                if sub != -1.0:
+                    return w * sub
+            return -1.0
+
+        res = []
+        for cur, des in queries:
+            if cur not in g or des not in g:
+                res.append(-1.0)
             else:
-                ans.append(-1)
-        return ans
-
+                res.append(dfs(cur, des, set([cur])))
+        return res
 
