@@ -1,34 +1,24 @@
 class Solution:
     def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
         
-        been = set()
-        q = deque([(entrance[1],entrance[0],0)])
-        been.add((entrance[1],entrance[0]))
-        ends = []
-        directions = [[1,0],[-1,0],[0,1],[0,-1]]
-        maze[entrance[0]][entrance[1]] = '+'
+        low = float('inf')
+        q = deque([])
+        seen=set()
+        ys,xs = entrance
+        q.append((xs,ys,0))
+        seen.add((xs,ys))
+        dirs = [[1,0],[-1,0],[0,1],[0,-1]]
+        found = False
         while q:
-            cur = q.popleft()
-            x,y,steps = cur
-            for xn,yn in directions:
-                xx = xn +x
-                yy = yn +y
-                
-                if (xx in range(len(maze[0])) and 
-                    yy in range(len(maze)) and
-                    maze[yy][xx] != "+" and
-                    (xx,yy) not in been
-                    ):
-                    if xx == 0 or yy == 0 or xx == len(maze[0])-1 or yy == len(maze)-1:
-                        return steps+1
-                    else:
-                        q.append((xx,yy,steps+1))
-                        been.add((xx,yy))
-                        maze[yy][xx] = "+"
-
-        return -1   
-
-
-        
-
+            x,y,d = q.popleft()
+            if (x!=xs or y!=ys) and (x in [0,len(maze[0])-1] or y in [0,len(maze)-1]):
+                found = True
+                low = min(low,d)
+            for dx,dy in dirs:
+                xx = x+dx
+                yy = y+dy
+                if xx in range(len(maze[0])) and yy in range(len(maze)) and not((xx,yy) in seen) and maze[yy][xx] ==".":
+                    seen.add((xx,yy))
+                    q.append((xx,yy,d+1))
+        return low if found else -1
 
