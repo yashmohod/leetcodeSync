@@ -1,27 +1,23 @@
 class SmallestInfiniteSet:
 
     def __init__(self):
-        
-        self.removedSet = set()
-        self.curSmol = 1
+        self.removed = set([])
+        self.su = 1
 
     def popSmallest(self) -> int:
-        toRemove = self.curSmol
-
-        self.removedSet.add(toRemove)
-        while self.curSmol in self.removedSet:
-            self.curSmol +=1
-
-        return toRemove
+        
+        if len(self.removed) == 0:
+            res = self.su
+            self.su +=1
+            return res
+        else:
+            removedmin = min(self.removed)
+            self.removed.remove(removedmin)
+            return removedmin 
 
     def addBack(self, num: int) -> None:
-        if num in self.removedSet :
-            self.removedSet.remove(num)
-
-            if num < self.curSmol:
-                self.curSmol = num
-        
-
+        if num < self.su:
+            self.removed.add(num)
 
 
 # Your SmallestInfiniteSet object will be instantiated and called as such:
