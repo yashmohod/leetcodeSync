@@ -1,18 +1,17 @@
 class Solution:
     def isValid(self, s: str) -> bool:
     
-        q = deque([])
-        m = {"}":"{","]":"[", ")":"("}
-        for i in s :
+        r = {"}":"{","]":"[",")":"("}
+        t = deque([])
 
-            if i not in m.keys():
-                q.append(i)
-            else:
-                if len(q) == 0:
-                    return False
+        for i in s:
+            if i in r:
+                if t and t[-1] == r[i]:
+                    t.pop()
                 else:
-                    cur = q.pop()
-                    if m[i] != cur:
-                        return False
-        return True if len(q) == 0 else False
+                    t.append(i)
+            else:
+                t.append(i)
+
+        return len(t) == 0 
             
