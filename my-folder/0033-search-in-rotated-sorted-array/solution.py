@@ -1,42 +1,21 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        
-        def bs(ll,rr):
-            
-            while ll<=rr:
-                mm = (ll+rr)//2
-                print(ll,mm,rr)
-                print(nums[mm] == target)
-                if nums[mm] == target:
-                    return mm
-                elif nums[mm] < target:
-                    return bs(mm+1,rr)
-                elif nums[mm] > target:
-                    return bs(ll,mm-1)
-            
-            return -1
-
-
         if len(nums) == 1:
-            if nums[0] == target:
-                return 0
+            return 0 if nums[0] == target else -1
+        l,r=0,1
+        while r < len(nums) and nums[r-1] < nums[r]:
+            r+=1
+        
+        l=r - len(nums)
+        r = r-1
+        print(l,r)
+        while l<=r:
+            m = (l+r)//2
+            if nums[m] > target:
+                r = m-1
+            elif nums[m] < target:
+                l = m+1
             else:
-                return -1 
-
-
-        l,r =0,len(nums)-1
-        if nums[l]<nums[r]:
-            return bs(l,r)
-        else:
-            
-            while nums[r]>nums[r-1]:
-                r-=1
-            
-            if nums[l] <= target:
-                return bs(l,r-1)
-            else:
-                return bs(r,len(nums)-1)
-
-
-
+                return m if m >= 0 else len(nums)+m
+        return -1 
 
