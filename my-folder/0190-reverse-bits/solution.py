@@ -1,9 +1,0 @@
-class Solution:
-    def reverseBits(self, n: int) -> int:
-        
-        res = 0
-
-        for i in range(32): #or we can also say while n != 0
-            bit = (n>>i) & 1
-            res = res | bit<<(31-i) #so that I can get the bits from left to right
-        return res
